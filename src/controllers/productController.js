@@ -94,22 +94,22 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
 // Featured — fallback to top-rated
 const getFeaturedProducts = asyncHandler(async (req, res) => {
-  let products = await Product.find({ isFeatured: true, isActive: true }).limit(12).populate('category', 'name slug icon').select('-__v');
-  if (products.length === 0) products = await Product.find({ isActive: true }).sort({ rating: -1, numReviews: -1 }).limit(12).populate('category', 'name slug icon').select('-__v');
+  let products = await Product.find({ isFeatured: true, isActive: true }).limit(20).populate('category', 'name slug icon').select('-__v');
+  if (products.length === 0) products = await Product.find({ isActive: true }).sort({ rating: -1, numReviews: -1 }).limit(20).populate('category', 'name slug icon').select('-__v');
   res.json({ success: true, products });
 });
 
 // New Arrivals — fallback to newest
 const getNewArrivals = asyncHandler(async (req, res) => {
-  let products = await Product.find({ isNew: true, isActive: true }).sort({ createdAt: -1 }).limit(12).populate('category', 'name slug icon').select('-__v');
-  if (products.length === 0) products = await Product.find({ isActive: true }).sort({ createdAt: -1 }).limit(12).populate('category', 'name slug icon').select('-__v');
+  let products = await Product.find({ isNew: true, isActive: true }).sort({ createdAt: -1 }).limit(20).populate('category', 'name slug icon').select('-__v');
+  if (products.length === 0) products = await Product.find({ isActive: true }).sort({ createdAt: -1 }).limit(20).populate('category', 'name slug icon').select('-__v');
   res.json({ success: true, products });
 });
 
 // Best Sellers — fallback to highest rated
 const getBestSellers = asyncHandler(async (req, res) => {
-  let products = await Product.find({ isActive: true, soldCount: { $gt: 0 } }).sort({ soldCount: -1 }).limit(12).populate('category', 'name slug icon').select('-__v');
-  if (products.length === 0) products = await Product.find({ isActive: true }).sort({ rating: -1, numReviews: -1 }).limit(12).populate('category', 'name slug icon').select('-__v');
+  let products = await Product.find({ isActive: true, soldCount: { $gt: 0 } }).sort({ soldCount: -1 }).limit(20).populate('category', 'name slug icon').select('-__v');
+  if (products.length === 0) products = await Product.find({ isActive: true }).sort({ rating: -1, numReviews: -1 }).limit(20).populate('category', 'name slug icon').select('-__v');
   res.json({ success: true, products });
 });
 
